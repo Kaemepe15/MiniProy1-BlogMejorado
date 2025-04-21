@@ -18,6 +18,6 @@ from django.contrib import admin
 from django.urls import path, include
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    path('tulaperaconlabanana/', admin.site.urls),
     path('', include('blogapp.urls')),  # Conecta las URLs de blogapp
 ]
