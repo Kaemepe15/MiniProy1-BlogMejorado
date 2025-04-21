@@ -21,7 +21,7 @@ class Review(models.Model):
     blog = models.ForeignKey(Blog, on_delete=models.CASCADE, related_name='reviews')
     reviewer = models.ForeignKey(User, on_delete=models.CASCADE)
     rating = models.IntegerField(validators=[MinValueValidator(1), MaxValueValidator(5)])
-    comment = models.TextField()
+    comment = RichTextField()
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
