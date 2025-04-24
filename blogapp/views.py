@@ -2,6 +2,13 @@ from django.views.generic import ListView, DetailView, CreateView
 from django.urls import reverse_lazy
 from .models import Blog, Review, Comment
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.forms import UserCreationForm
+
+
+class SignUpView(CreateView):     #vista para registrar usuario
+    form_class = UserCreationForm
+    success_url = reverse_lazy('login')
+    template_name = 'registration,signup.html'
 
 class BlogListView(ListView):
     model = Blog
