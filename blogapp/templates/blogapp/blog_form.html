@@ -2,12 +2,16 @@
 {% load widget_tweaks %}
 {% block content %}
   <h1 class="text-2xl font-bold mb-6 text-gray-900 dark:text-white">Create a New Blog</h1>
-  <form method="post" class="space-y-4 transition-all duration-700 ease-in-out animate-fade-in">{% csrf_token %}
+  <form method="post" class="space-y-4 transition-all duration-700 ease-in-out animate-fade-in" enctype="multipart/form-data">{% csrf_token %}
     <div class="space-y-2 transition-all duration-700 ease-in-out">
       {% for field in form %}
         <div>
           <label for="{{ field.id_for_label }}" class="block text-sm font-medium mb-1 text-gray-900 dark:text-white">{{ field.label }}</label>
-          {{ field|add_class:"bg-white dark:bg-gray-800 text-gray-900 dark:text-white px-4 py-2 rounded-lg w-full border border-gray-300 dark:border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500" }}
+          {% if field.name == 'featured_image' %}
+            {{ field|add_class:"text-gray-900 dark:text-white px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100 dark:file:bg-blue-900 dark:file:text-blue-200 dark:hover:file:bg-blue-800" }}
+          {% else %}
+            {{ field|add_class:"bg-white dark:bg-gray-800 text-gray-900 dark:text-white px-4 py-2 rounded-lg w-full border border-gray-300 dark:border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500" }}
+          {% endif %}
           {% if field.errors %}
             <p class="text-red-500 text-sm">{{ field.errors|striptags }}</p>
           {% endif %}

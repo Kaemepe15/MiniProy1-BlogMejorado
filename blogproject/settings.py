@@ -148,5 +148,9 @@ CKEDITOR_CONFIGS = {
     },
 }
 
-# Configuración para subir imágenes
+#Configuración para subir imágenes
 CKEDITOR_UPLOAD_PATH = 'uploads/'  #Carpeta donde se guardarán las imágenes
+
+#Configuración de archivos multimedia
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media' 
