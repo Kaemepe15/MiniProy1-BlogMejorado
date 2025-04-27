@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'blogapp',
     'widget_tweaks',
     'ckeditor',
+    'ckeditor_uploader',
 ]
 
 MIDDLEWARE = [
@@ -145,3 +146,6 @@ CKEDITOR_CONFIGS = {
         'extraPlugins': ['codesnippet'],  # Opcion para añadir plugin para fragmentos de código
     },
 }
+
+# Configuración para subir imágenes
+CKEDITOR_UPLOAD_PATH = 'uploads/'  #Carpeta donde se guardarán las imágenes
