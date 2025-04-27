@@ -136,6 +136,7 @@ CKEDITOR_CONFIGS = {
             ['Bold', 'Italic', 'Underline', 'Strike'],  #Herramientas de formato básico para tipo de letra
             ['NumberedList', 'BulletedList', 'Blockquote'],  #Listas y citas
             ['Link', 'Unlink'],  #Agregar Enlaces
+            ['Image'],  #Botón para subir imagen
             ['Undo', 'Redo'],  #Opción para deshacer/rehacer
             ['Format'],  #Formatos de títulos como h1 - h2
             ['Maximize'],  #Opción para entrar en pantalla completa
