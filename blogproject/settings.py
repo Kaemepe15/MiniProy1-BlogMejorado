@@ -139,8 +139,8 @@ CKEDITOR_CONFIGS = {
             ['Format'],  #Formatos de títulos como h1 - h2
             ['Maximize'],  #Opción para entrar en pantalla completa
         ],
-        'height': 300,
-        'width': '100%',
+        'height': '300%',
+        'width': '180%',
         'removePlugins': ['stylesheetparser'],  #Elimina los plugins innecesarios
         'extraPlugins': ['codesnippet'],  # Opcion para añadir plugin para fragmentos de código
     },
