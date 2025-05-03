@@ -3,6 +3,8 @@ from django.urls import reverse_lazy
 from .models import Blog, Review, Comment
 from django.contrib.auth.mixins import LoginRequiredMixin
 from .forms import ReviewForm
+from django.http import HttpResponseRedirect
+
 class BlogListView(ListView):
     model = Blog
     template_name = 'blogapp/blog_list.html'
@@ -11,6 +13,12 @@ class BlogListView(ListView):
 class BlogDetailView(DetailView):
     model = Blog
     template_name = 'blogapp/blog_detail.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['user'] = self.request.user
+        context['can_add_review'] = not Review.objects.filter(blog=self.get_object(), reviewer=self.request.user).exists()
+        return context
 
 
 class BlogCreateView(LoginRequiredMixin, CreateView):
@@ -32,6 +40,16 @@ class ReviewCreateView(LoginRequiredMixin, CreateView):
     form_class = ReviewForm  # Usa el formulario personalizado
     template_name = 'blogapp/review_form.html'
 
+    def get(self, request, *args, **kwargs):
+        #Verifica si el usuario ya ha dejado una reseña para este blog
+        blog_id = self.kwargs['pk']
+        reviewer = self.request.user
+        if Review.objects.filter(blog_id=blog_id, reviewer=reviewer).exists():
+            #Redirige a la página de detalles si ya existe una reseña
+            return HttpResponseRedirect(reverse_lazy('blogapp:blog_detail', kwargs={'pk': blog_id}))
+        return super().get(request, *args, **kwargs)
+
+    
     def form_valid(self, form):
         form.instance.reviewer = self.request.user
         form.instance.blog_id = self.kwargs['pk']

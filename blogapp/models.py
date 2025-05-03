@@ -27,6 +27,9 @@ class Review(models.Model):
 
     def __str__(self):
         return f"{self.reviewer.username} - {self.blog.title}"
+    
+    class Meta:
+        unique_together = ['blog','reviewer']  #Permite que el usuario pueda reseñar el blog solo una vez
 
 
 
