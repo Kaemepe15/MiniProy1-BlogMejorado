@@ -2,7 +2,7 @@ from django.views.generic import ListView, DetailView, CreateView
 from django.urls import reverse_lazy
 from .models import Blog, Review, Comment
 from django.contrib.auth.mixins import LoginRequiredMixin
-
+from .forms import ReviewForm
 class BlogListView(ListView):
     model = Blog
     template_name = 'blogapp/blog_list.html'
@@ -27,9 +27,9 @@ class BlogCreateView(LoginRequiredMixin, CreateView):
 
 
 
-class ReviewCreateView(CreateView):
+class ReviewCreateView(LoginRequiredMixin, CreateView):
     model = Review
-    fields = ['rating', 'comment']
+    form_class = ReviewForm  # Usa el formulario personalizado
     template_name = 'blogapp/review_form.html'
 
     def form_valid(self, form):

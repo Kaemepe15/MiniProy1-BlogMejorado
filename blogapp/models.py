@@ -5,7 +5,7 @@ from ckeditor.fields import RichTextField
 
 
 
-# MODELOS
+#MODELOS
 
 class Blog(models.Model):
     title = models.CharField(max_length=200)
