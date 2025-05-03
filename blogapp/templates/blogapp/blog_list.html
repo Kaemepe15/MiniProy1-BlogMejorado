@@ -7,6 +7,17 @@
         <h2 class="text-xl font-semibold mb-2">
           <a href="{% url 'blogapp:blog_detail' blog.pk %}" class="text-blue-400 hover:text-blue-300">{{ blog.title }}</a>
         </h2>
+        {% if blog.featured_image %}
+          <img src="{{ blog.featured_image.url }}" alt="{{ blog.title }}" class="w-full h-48 object-cover rounded-lg mb-4">
+        {% endif %}
+        <p class="text-sm text-gray-600 dark:text-gray-400 mb-2">
+          {% if blog.reviews.exists %}
+            Average Rating: {{ blog.average_rating }}/5 ⭐ ({{ blog.reviews.count }} reviews)
+          {% else %}
+            No reviews yet.
+          {% endif %}
+        </p>
+        <p class="text-gray-700 dark:text-gray-300 line-clamp-3">{{ blog.content|safe }}</p>
         <p class="text-sm text-gray-500 dark:text-gray-400">by {{ blog.author.username }} - {{ blog.created_at }}</p>
       </div>
     {% empty %}

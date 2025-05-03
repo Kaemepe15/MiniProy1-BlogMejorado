@@ -16,6 +16,12 @@ class Blog(models.Model):
 
     def __str__(self):
         return self.title
+    
+    def average_rating(self):
+        reviews = self.reviews.all()
+        if reviews.exists():
+            return round(sum(review.rating for review in reviews) / reviews.count(), 1)
+        return 0
 
 
 class Review(models.Model):
