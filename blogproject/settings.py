@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
 from pathlib import Path
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -39,6 +40,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'blogapp',
     'widget_tweaks',
+    'ckeditor',
+    'ckeditor_uploader',
 ]
 
 MIDDLEWARE = [
@@ -119,7 +122,35 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+CKEDITOR_CONFIGS = {
+    'default': {
+        'toolbar': [
+            ['Bold', 'Italic', 'Underline', 'Strike'],  #Herramientas de formato básico para tipo de letra
+            ['NumberedList', 'BulletedList', 'Blockquote'],  #Listas y citas
+            ['Link', 'Unlink'],  #Agregar Enlaces
+            ['Image'],  #Botón para subir imagen
+            ['Undo', 'Redo'],  #Opción para deshacer/rehacer
+            ['Format'],  #Formatos de títulos como h1 - h2
+            ['Maximize'],  #Opción para entrar en pantalla completa
+        ],
+        'height': '300%',
+        'width': '180%',
+        'removePlugins': ['stylesheetparser'],  #Elimina los plugins innecesarios
+        'extraPlugins': ['codesnippet'],  # Opcion para añadir plugin para fragmentos de código
+    },
+}
+
+#Configuración para subir imágenes
+CKEDITOR_UPLOAD_PATH = 'uploads/'  #Carpeta donde se guardarán las imágenes
+
+#Configuración de archivos multimedia
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media' 

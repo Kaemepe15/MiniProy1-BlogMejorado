@@ -1,29 +1,41 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.core.validators import MinValueValidator, MaxValueValidator
+from ckeditor.fields import RichTextField
 
 
-# MODELOS
+
+#MODELOS
 
 class Blog(models.Model):
     title = models.CharField(max_length=200)
-    content = models.TextField()
+    content = RichTextField()
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
+    featured_image = models.ImageField(upload_to='blog_images/', blank=True, null=True) #Se añade para poder agregar imagenes
 
     def __str__(self):
         return self.title
+    
+    def average_rating(self):
+        reviews = self.reviews.all()
+        if reviews.exists():
+            return round(sum(review.rating for review in reviews) / reviews.count(), 1)
+        return 0
 
 
 class Review(models.Model):
     blog = models.ForeignKey(Blog, on_delete=models.CASCADE, related_name='reviews')
     reviewer = models.ForeignKey(User, on_delete=models.CASCADE)
     rating = models.IntegerField(validators=[MinValueValidator(1), MaxValueValidator(5)])
-    comment = models.TextField()
+    comment = RichTextField()
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return f"{self.reviewer.username} - {self.blog.title}"
+    
+    class Meta:
+        unique_together = ['blog','reviewer']  #Permite que el usuario pueda reseñar el blog solo una vez
 
 
 
