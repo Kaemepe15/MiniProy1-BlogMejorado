@@ -2,7 +2,7 @@
 {% load widget_tweaks %}
 
 {% block content %}
-  <h1 class="text-2xl font-bold mb-6 text-gray-900 dark:text-white">Registrarse</h1>
+  <h1 class="text-2xl font-bold mb-6 text-gray-900 dark:text-white">Iniciar Sesión</h1>
   <form method="post" class="space-y-4 transition-all duration-700 ease-in-out animate-fade-in">
     {% csrf_token %}
     <div class="space-y-2 transition-all duration-700 ease-in-out">
@@ -16,7 +16,7 @@
         </div>
       {% endfor %}
     </div>
-    <button type="submit" class="px-6 py-2 bg-blue-500 hover:bg-blue-600 text-white dark:bg-blue-600 dark:hover:bg-blue-700 rounded transition-all duration-500 ease-in-out">Registrarse</button>
+    <button type="submit" class="px-6 py-2 bg-blue-500 hover:bg-blue-600 text-white dark:bg-blue-600 dark:hover:bg-blue-700 rounded transition-all duration-500 ease-in-out">Iniciar Sesión</button>
   </form>
-  <p class="mt-4 text-gray-900 dark:text-white">¿Ya tienes una cuenta? <a href="{% url 'login' %}" class="text-blue-600 dark:text-blue-400 hover:text-blue-500 dark:hover:text-blue-300">Inicia sesión aquí</a>.</p>
+  <p class="mt-4 text-gray-900 dark:text-white">¿No tienes una cuenta? <a href="{% url 'blogapp:signup' %}" class="text-blue-600 dark:text-blue-400 hover:text-blue-500 dark:hover:text-blue-300">Regístrate aquí</a>.</p>
 {% endblock %}

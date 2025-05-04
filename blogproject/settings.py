@@ -101,6 +101,10 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+#hacer que URL de login se vea como queremos cuando usuario no auth es redirigido
+
+LOGIN_URL = 'blogapp:login'
+
 
 # Internationalization
 # https://docs.djangoproject.com/en/5.1/topics/i18n/
