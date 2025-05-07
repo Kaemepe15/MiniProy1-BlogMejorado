@@ -16,24 +16,16 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-<<<<<<< HEAD
 from django.conf import settings
 from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('blogapp.urls')),  #Conecta las URLs de blogapp
-    path('ckeditor/', include('ckeditor_uploader.urls')), #Url para subir imágenes con ckeditor
-]
-
-#Sirve archivos multimedia durante el desarrollo
-if settings.DEBUG:
-    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-=======
-
-urlpatterns = [
-    path('tulaperaconlabanana/', admin.site.urls), #URL de admin
     path('', include('blogapp.urls')),  # Conecta las URLs de blogapp
-    path('accounts/', include('django.contrib.auth.urls')), #Url de autenticación - para inicio y cierre de sesión
+    path('ckeditor/', include('ckeditor_uploader.urls')),  # Url para subir imágenes con ckeditor
 ]
->>>>>>> Champion
+
+# Sirve archivos estáticos y multimedia durante el desarrollo
+if settings.DEBUG:
+    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
