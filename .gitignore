@@ -1,0 +1,34 @@
+# Archivos Python
+*.pyc
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Archivos de base de datos
+*.sqlite3
+db.sqlite3
+
+# Archivos de medios (si no los subes al repositorio)
+media/
+staticfiles/
+
+# Archivos de entorno virtual
+env/
+venv/
+.env
+.venv/
+
+# Archivos de configuración sensibles
+*.log
+local_settings.py
+
+# Archivos generados por IDEs
+.idea/
+.vscode/
+*.sublime-project
+*.sublime-workspace
+
+# Otros
+*.swp
+*.bak
+.DS_Store
