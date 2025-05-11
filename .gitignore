@@ -1,0 +1,21 @@
+# Archivos compilados de Python
+*.pyc
+_pycache_/
+
+# Entornos virtuales
+env/
+venv/
+
+# Archivos de configuración local
+*.env
+
+# Archivos de logs
+*.log
+
+# Archivos multimedia (opcional, si no quieres versionar imágenes subidas)
+media/
+
+# Otros archivos generados
+*.pyo
+*.pyd
+.Python
