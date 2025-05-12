@@ -9,11 +9,13 @@ from django.contrib.auth.forms import UserCreationForm
 class BlogListView(ListView):
     model = Blog
     template_name = 'blogapp/blog_list.html'
+    paginate_by = 4  # Muestra 5 blogs por página (ajusta según necesites)
 
 
 class BlogDetailView(DetailView):
     model = Blog
     template_name = 'blogapp/blog_detail.html'
+    
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
