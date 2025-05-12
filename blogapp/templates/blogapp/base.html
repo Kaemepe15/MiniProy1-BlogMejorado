@@ -26,15 +26,15 @@
             'dark-text': '#270140',
             'dark-purple-nav': '#151026',
             'light-nav': '#E0E0E0',
-            'light-bg': '#F5F5F5', /* Fondo claro para tarjetas */
-            'light-text-dark': '#333333', /* Texto oscuro para modo claro */
-            'light-blue': '#1E90FF', /* Azul suave para títulos en modo claro */
-            'light-border': '#A0A0A0' /* Bordes en modo claro */
+            'light-bg': '#F5F5F5',
+            'light-text-dark': '#333333',
+            'light-blue': '#1E90FF',
+            'light-border': '#A0A0A0'
           },
           boxShadow: {
             'pixel': '4px 4px 0 0 rgba(0, 0, 0, 0.5)',
             'pixel-dark': '4px 4px 0 0 rgba(255, 255, 255, 0.2)',
-            'pixel-light': '4px 4px 0 0 rgba(0, 0, 0, 0.3)' /* Sombra para modo claro */
+            'pixel-light': '4px 4px 0 0 rgba(0, 0, 0, 0.3)'
           }
         }
       }
@@ -109,44 +109,84 @@
 
     /* Fondo semitransparente para el contenido */
     main {
-      background-color: rgba(255, 255, 255, 0.8); /* Modo claro */
+      background-color: rgba(255, 255, 255, 0.8);
     }
     .dark main {
-      background-color: rgba(5, 14, 38, 0.8); /* Modo oscuro */
+      background-color: rgba(5, 14, 38, 0.8);
     }
 
-    /* Estilos para la lista de blogs */
+    /* Estilos para elementos comunes */
     .blog-card {
-      background-color: rgba(245, 245, 245, 0.9); /* Fondo claro para tarjetas */
-      border-color: #A0A0A0; /* Borde claro */
+      background-color: rgba(245, 245, 245, 0.9);
+      border-color: #A0A0A0;
     }
     .dark .blog-card {
-      background-color: rgba(5, 14, 38, 0.8); /* Fondo oscuro */
-      border-color: #270140; /* Borde oscuro */
+      background-color: rgba(5, 14, 38, 0.8);
+      border-color: #270140;
     }
     .blog-title {
-      color: #1E90FF; /* Título claro */
+      color: #1E90FF;
     }
     .dark .blog-title {
-      color: #0060C1; /* Título oscuro */
+      color: #0060C1;
     }
     .blog-text {
-      color: #333333; /* Texto claro */
+      color: #333333;
     }
     .dark .blog-text {
-      color: #FFFFFF; /* Texto oscuro */
+      color: #FFFFFF;
     }
     .blog-image {
-      border-color: #A0A0A0; /* Borde imagen claro */
+      border-color: #A0A0A0;
     }
     .dark .blog-image {
-      border-color: #270140; /* Borde imagen oscuro */
+      border-color: #270140;
     }
     .blog-button {
-      box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.3); /* Sombra clara */
+      box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.3);
     }
     .dark .blog-button {
-      box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.5); /* Sombra oscura */
+      box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.5);
+    }
+    .blog-review {
+      background-color: rgba(230, 230, 230, 0.9);
+    }
+    .dark .blog-review {
+      background-color: rgba(39, 1, 64, 0.8);
+    }
+    .blog-comment {
+      color: #555555;
+    }
+    .dark .blog-comment {
+      color: #BBBBBB;
+    }
+    .blog-link {
+      color: #1E90FF;
+    }
+    .dark .blog-link {
+      color: #00BFFF;
+    }
+    .blog-form {
+      background-color: rgba(245, 245, 245, 0.9);
+    }
+    .dark .blog-form {
+      background-color: rgba(5, 14, 38, 0.8);
+    }
+    .blog-label {
+      color: #333333;
+    }
+    .dark .blog-label {
+      color: #FFFFFF;
+    }
+    .blog-input {
+      background-color: #FFFFFF;
+      border-color: #A0A0A0;
+      color: #333333;
+    }
+    .dark .blog-input {
+      background-color: #050E26;
+      border-color: #270140;
+      color: #FFFFFF;
     }
 
     /* Barra de navegación */

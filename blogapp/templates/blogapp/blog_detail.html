@@ -1,38 +1,38 @@
 {% extends 'base.html' %}
 {% block content %}
-  <article class="bg-white dark:bg-gray-900 p-6 rounded-lg shadow-lg transition-all duration-700 ease-in-out dark:text-white text-gray-900 animate-fade-in">
-    <h1 class="text-3xl font-bold mb-2">{{ object.title }}</h1>
+  <article class="blog-card p-6 rounded-none border-4 shadow-pixel hover:shadow-none hover:-translate-y-1 hover:-translate-x-1 transition-all duration-700 ease-in-out animate-fade-in">
+    <h1 class="text-3xl blog-title font-bold mb-2">{{ object.title }}</h1>
     {% if object.reviews.exists %}
-      <p class="text-sm text-gray-600 dark:text-gray-400 mb-2">Average Rating: {{ object.average_rating }}/5 ⭐ ({{ object.reviews.count }} reviews)</p>
+      <p class="text-sm blog-text mb-2">Average Rating: {{ object.average_rating }}/5 ⭐ ({{ object.reviews.count }} reviews)</p>
     {% else %}
-      <p class="text-sm text-gray-600 dark:text-gray-400 mb-2">No reviews yet.</p>
+      <p class="text-sm blog-text mb-2">No reviews yet.</p>
     {% endif %}
     {% if object.featured_image %}
-      <img src="{{ object.featured_image.url }}" alt="{{ object.title }}" class="w-full h-64 object-cover rounded-lg mb-4">
+      <img src="{{ object.featured_image.url }}" alt="{{ object.title }}" class="w-full h-64 object-cover rounded-none border-2 blog-image mb-4 shadow-pixel">
     {% endif %}
-    <p class="text-gray-700 dark:text-gray-300 mb-4">{{ object.content|safe }}</p>
-    <p class="text-sm text-gray-600 dark:text-gray-500">By {{ object.author.username }} - {{ object.created_at }}</p>
+    <p class="blog-text mb-4">{{ object.content|safe }}</p>
+    <p class="text-sm blog-text">By {{ object.author.username }} - {{ object.created_at }}</p>
   </article>
 
   <section class="mt-8">
-    <h2 class="text-2xl font-semibold mb-4">Reviews</h2>
+    <h2 class="text-2xl blog-title font-semibold mb-4">Reviews</h2>
     {% for review in object.reviews.all %}
-      <div class="bg-gray-100 dark:bg-gray-800 p-4 rounded-lg mb-4 transition-all duration-700 ease-in-out dark:text-white text-gray-900 animate-fade-in">
-        <p class="text-blue-700 dark:text-blue-300 font-medium">{{ review.reviewer.username }} - {{ review.rating }}/5 ⭐</p>
-        <p class="text-gray-700 dark:text-gray-300">{{ review.comment|safe }}</p>
-        <a href="{% url 'blogapp:add_comment' blog_pk=object.pk review_pk=review.pk %}" class="text-sm text-blue-600 dark:text-blue-400 hover:text-blue-500 dark:hover:text-blue-300 mt-2 inline-block">Add Comment</a>
-        <ul class="mt-2 list-disc ml-6 text-gray-600 dark:text-gray-400">
+      <div class="blog-review p-4 rounded-none border-2 blog-image mb-4 transition-all duration-700 ease-in-out animate-fade-in">
+        <p class="blog-title font-medium">{{ review.reviewer.username }} - {{ review.rating }}/5 ⭐</p>
+        <p class="blog-text">{{ review.comment|safe }}</p>
+        <a href="{% url 'blogapp:add_comment' blog_pk=object.pk review_pk=review.pk %}" class="text-sm blog-link hover:text-neon-pink mt-2 inline-block">Add Comment</a>
+        <ul class="mt-2 list-disc ml-6 blog-comment">
           {% for comment in review.comments.all %}
-            <li><span class="font-semibold text-gray-900 dark:text-white">{{ comment.commenter.username }}</span>: {{ comment.content }}</li>
+            <li><span class="font-semibold blog-text">{{ comment.commenter.username }}</span>: {{ comment.content }}</li>
           {% endfor %}
         </ul>
       </div>
     {% empty %}
-      <p class="text-gray-400">No reviews yet. Be the first to add one.</p>
+      <p class="blog-text">No reviews yet. Be the first to add one.</p>
     {% endfor %}
     
     {% if user.is_authenticated and can_add_review %}
-      <a href="{% url 'blogapp:add_review' object.pk %}" class="mt-4 inline-block bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded transition-colors">Add Review</a>
+      <a href="{% url 'blogapp:add_review' object.pk %}" class="mt-4 inline-block bg-dark-teal hover:bg-neon-pink text-light-text font-medium py-2 px-4 rounded-none transition-all duration-300 blog-button hover:shadow-none hover:-translate-y-1 hover:-translate-x-1">Add Review</a>
     {% endif %}
   </section>
 {% endblock %}
