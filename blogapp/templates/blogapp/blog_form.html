@@ -1,25 +1,50 @@
 {% extends 'base.html' %}
 {% load widget_tweaks %}
+
 {% block content %}
-  <h1 class="text-2xl blog-title font-bold mb-6">Create a New Blog</h1>
-  <form method="post" class="blog-form space-y-4 p-6 rounded-none border-4 blog-image transition-all duration-700 ease-in-out animate-fade-in" enctype="multipart/form-data">{% csrf_token %}
-    <div class="space-y-2 transition-all duration-700 ease-in-out">
-      {% for field in form %}
-        <div>
-          <label for="{{ field.id_for_label }}" class="block text-sm blog-label font-medium mb-1">{{ field.label }}</label>
-          {% if field.name == 'featured_image' %}
-            {{ field|add_class:"blog-input px-4 py-2 rounded-none border focus:outline-none focus:ring-2 focus:ring-blue-500 file:mr-4 file:py-2 file:px-4 file:rounded-none file:border-0 file:text-sm file:font-semibold file:bg-dark-teal file:text-light-text hover:file:bg-neon-pink" }}
-          {% elif field.name == 'tags' %}
-            {{ field|add_class:"blog-input" }}
+  <div class="animate-fade-in max-w-lg mx-auto">
+    <!-- Título dinámico -->
+    <h1 class="text-2xl blog-title font-bold mb-6 text-center shadow-pixel">
+      {% if form.instance.pk %}
+        Editar Blog
+      {% else %}
+        Crear Blog
+      {% endif %}
+    </h1>
+    
+    <!-- Formulario -->
+    <form method="post" class="blog-form space-y-4 p-6 rounded-none border-4 blog-image transition-all duration-700 ease-in-out animate-fade-in" enctype="multipart/form-data">
+      {% csrf_token %}
+      <div class="space-y-2 transition-all duration-700 ease-in-out">
+        {% for field in form %}
+          <div>
+            <label for="{{ field.id_for_label }}" class="block text-sm blog-label font-medium mb-1">{{ field.label }}</label>
+            {% if field.name == 'featured_image' %}
+              {{ field|add_class:"blog-input px-4 py-2 rounded-none border focus:outline-none focus:ring-2 focus:ring-blue-500 file:mr-4 file:py-2 file:px-4 file:rounded-none file:border-0 file:text-sm file:font-semibold file:bg-dark-teal file:text-light-text hover:file:bg-neon-pink" }}
+            {% elif field.name == 'tags' %}
+              {{ field|add_class:"blog-input" }}
+            {% else %}
+              {{ field|add_class:"blog-input px-4 py-2 rounded-none w-full border focus:outline-none focus:ring-2 focus:ring-blue-500" }}
+            {% endif %}
+            {% if field.errors %}
+              <p class="text-red-500 text-sm">{{ field.errors|striptags }}</p>
+            {% endif %}
+          </div>
+        {% endfor %}
+      </div>
+      <div class="flex space-x-4">
+        <button type="submit" class="px-6 py-2 bg-dark-teal hover:bg-neon-pink text-light-text font-medium rounded-none transition-all duration-300 blog-button hover:shadow-none hover:-translate-y-1 hover:-translate-x-1">
+          {% if form.instance.pk %}
+            Guardar Cambios
           {% else %}
-            {{ field|add_class:"blog-input px-4 py-2 rounded-none w-full border focus:outline-none focus:ring-2 focus:ring-blue-500" }}
+            Post Blog
           {% endif %}
-          {% if field.errors %}
-            <p class="text-red-500 text-sm">{{ field.errors|striptags }}</p>
-          {% endif %}
-        </div>
-      {% endfor %}
-    </div>
-    <button type="submit" class="px-6 py-2 bg-dark-teal hover:bg-neon-pink text-light-text font-medium rounded-none transition-all duration-300 blog-button hover:shadow-none hover:-translate-y-1 hover:-translate-x-1">Post Blog</button>
-  </form>
+        </button>
+        <!-- Botón de Cancelar -->
+        <a href="{% url 'blogapp:admin_dashboard' %}" class="inline-block px-6 py-2 bg-gray-500 text-light-text font-medium rounded-none transition-all duration-300 hover:bg-gray-700 hover:shadow-none hover:-translate-y-1 hover:-translate-x-1">
+          Cancelar
+        </a>
+      </div>
+    </form>
+  </div>
 {% endblock %}

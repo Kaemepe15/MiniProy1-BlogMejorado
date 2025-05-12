@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <div class="animate-fade-in">
+    <h1 class="text-3xl blog-title mb-8 text-center shadow-pixel">
+      Panel de Administración
+    </h1>
+
+    <!-- Resumen de estadísticas -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+      <div class="p-6 rounded-none border-4 shadow-pixel">
+        <h2 class="text-xl blog-title mb-4">Estadísticas</h2>
+        <p class="blog-text">Total de Blogs: {{ blog_count }}</p>
+        <p class="blog-text">Total de Etiquetas: {{ tag_count }}</p>
+      </div>
+    </div>
+
+    <!-- Lista de Blogs -->
+    <div class="mb-8">
+      <h2 class="text-2xl blog-title mb-4">Blogs</h2>
+      <a href="{% url 'blogapp:blog_create' %}" class="inline-block bg-dark-teal text-light-text font-medium py-2 px-4 mb-4 rounded-none transition-all duration-300 hover:bg-neon-pink hover:shadow-none hover:-translate-y-1 hover:-translate-x-1">
+        Crear Nuevo Blog
+      </a>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        {% for blog in blogs %}
+          <div class="blog-card p-6 rounded-none border-4 shadow-pixel hover:shadow-none hover:-translate-y-1 hover:-translate-x-1 transition-all duration-300">
+            <h3 class="text-lg blog-title mb-2">
+              <a href="{% url 'blogapp:blog_detail' blog.pk %}" class="hover:text-neon-pink">{{ blog.title }}</a>
+            </h3>
+            <p class="text-sm blog-text mb-2">Autor: {{ blog.author.username|default:"Unknown" }}</p>
+            <p class="text-sm blog-text mb-2">Creado: {{ blog.created_at|date:"M d, Y" }}</p>
+            <div class="flex space-x-2">
+              <a href="{% url 'blogapp:blog_edit' blog.pk %}" class="bg-dark-teal text-light-text font-medium py-1 px-2 rounded-none transition-all duration-300 hover:bg-neon-pink hover:shadow-none hover:-translate-y-1 hover:-translate-x-1">
+                Editar
+              </a>
+              <a href="{% url 'blogapp:blog_delete' blog.pk %}" class="bg-red-500 text-light-text font-medium py-1 px-2 rounded-none transition-all duration-300 hover:bg-red-700 hover:shadow-none hover:-translate-y-1 hover:-translate-x-1">
+                Eliminar
+              </a>
+            </div>
+          </div>
+        {% empty %}
+          <p class="blog-text">No hay blogs disponibles.</p>
+        {% endfor %}
+      </div>
+    </div>
+
+    <!-- Lista de Etiquetas -->
+    <div>
+      <h2 class="text-2xl blog-title mb-4">Etiquetas</h2>
+      <a href="{% url 'blogapp:tag_create' %}" class="inline-block bg-dark-teal text-light-text font-medium py-2 px-4 mb-4 rounded-none transition-all duration-300 hover:bg-neon-pink hover:shadow-none hover:-translate-y-1 hover:-translate-x-1">
+        Crear Nueva Etiqueta
+      </a>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        {% for tag in tags %}
+          <div class="p-4 rounded-none border-4 shadow-pixel hover:shadow-none hover:-translate-y-1 hover:-translate-x-1 transition-all duration-300">
+            <p class="blog-text">{{ tag.name }}</p>
+            <div class="flex space-x-2 mt-2">
+              <a href="{% url 'blogapp:tag_edit' tag.pk %}" class="bg-dark-teal text-light-text font-medium py-1 px-2 rounded-none transition-all duration-300 hover:bg-neon-pink hover:shadow-none hover:-translate-y-1 hover:-translate-x-1">
+                Editar
+              </a>
+              <a href="{% url 'blogapp:tag_delete' tag.pk %}" class="bg-red-500 text-light-text font-medium py-1 px-2 rounded-none transition-all duration-300 hover:bg-red-700 hover:shadow-none hover:-translate-y-1 hover:-translate-x-1">
+                Eliminar
+              </a>
+            </div>
+          </div>
+        {% empty %}
+          <p class="blog-text">No hay etiquetas disponibles.</p>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+{% endblock %}
