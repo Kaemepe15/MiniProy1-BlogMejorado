@@ -7,6 +7,14 @@
     {% else %}
       <p class="text-sm blog-text mb-2">No reviews yet.</p>
     {% endif %}
+    {% if object.tags.exists %}
+      <p class="text-sm blog-text mb-2">
+        Tags: 
+        {% for tag in object.tags.all %}
+          <a href="#" class="text-light-blue hover:text-neon-pink">{{ tag.name }}</a>{% if not forloop.last %}, {% endif %}
+        {% endfor %}
+      </p>
+    {% endif %}
     {% if object.featured_image %}
       <img src="{{ object.featured_image.url }}" alt="{{ object.title }}" class="w-full h-64 object-cover rounded-none border-2 blog-image mb-4 shadow-pixel">
     {% endif %}

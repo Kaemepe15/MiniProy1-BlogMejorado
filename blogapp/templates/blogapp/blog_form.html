@@ -8,7 +8,9 @@
         <div>
           <label for="{{ field.id_for_label }}" class="block text-sm blog-label font-medium mb-1">{{ field.label }}</label>
           {% if field.name == 'featured_image' %}
-            {{ field|add_class:"blog-input px-4 py-2 rounded-none border focus:outline-none focus:ring-2 focus:ring-blue-500 file:mr-4 file:py-2 file:px-4 file: Hawkinsfile:rounded-none file:border-0 file:text-sm file:font-semibold file:bg-dark-teal file:text-light-text hover:file:bg-neon-pink" }}
+            {{ field|add_class:"blog-input px-4 py-2 rounded-none border focus:outline-none focus:ring-2 focus:ring-blue-500 file:mr-4 file:py-2 file:px-4 file:rounded-none file:border-0 file:text-sm file:font-semibold file:bg-dark-teal file:text-light-text hover:file:bg-neon-pink" }}
+          {% elif field.name == 'tags' %}
+            {{ field|add_class:"blog-input" }}
           {% else %}
             {{ field|add_class:"blog-input px-4 py-2 rounded-none w-full border focus:outline-none focus:ring-2 focus:ring-blue-500" }}
           {% endif %}

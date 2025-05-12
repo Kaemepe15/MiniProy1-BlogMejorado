@@ -9,6 +9,14 @@
           <h2 class="text-xl blog-title mb-4">
             <a href="{% url 'blogapp:blog_detail' blog.pk %}" class="hover:text-neon-pink">{{ blog.title }}</a>
           </h2>
+          {% if blog.tags.exists %}
+            <p class="text-sm blog-text mb-2">
+              Tags: 
+              {% for tag in blog.tags.all %}
+                <a href="#" class="text-light-blue hover:text-neon-pink">{{ tag.name }}</a>{% if not forloop.last %}, {% endif %}
+              {% endfor %}
+            </p>
+          {% endif %}
           {% if blog.featured_image %}
             <img src="{{ blog.featured_image.url }}" alt="{{ blog.title }}" class="w-full h-48 object-cover rounded-none border-2 blog-image mb-4 shadow-pixel">
           {% endif %}
