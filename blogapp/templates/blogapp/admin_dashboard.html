@@ -6,17 +6,54 @@
       Panel de Administración
     </h1>
 
-    <!-- Resumen de estadísticas -->
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-      <div class="p-6 rounded-none border-4 shadow-pixel">
-        <h2 class="text-xl blog-title mb-4">Estadísticas</h2>
+    <!-- Sección de estadísticas en un rectángulo -->
+    <div class="p-6 blog-card rounded-none border-4 border-light-border dark:border-dark-purple shadow-pixel max-w-4xl mx-auto">
+      <h2 class="text-xl blog-title mb-4 text-center">Estadísticas</h2>
+
+      <!-- Tarjeta de estadísticas generales -->
+      <div class="p-4 blog-card rounded-none border-2 border-light-border dark:border-dark-purple shadow-pixel mb-6">
+        <h3 class="text-lg blog-title mb-2">General</h3>
         <p class="blog-text">Total de Blogs: {{ blog_count }}</p>
         <p class="blog-text">Total de Etiquetas: {{ tag_count }}</p>
+      </div>
+
+      <!-- Tarjeta de blogs más comentados -->
+      <div class="p-4 blog-card rounded-none border-2 border-light-border dark:border-dark-purple shadow-pixel mb-6">
+        <h3 class="text-lg blog-title mb-2">Blogs Más Comentados</h3>
+        {% if most_commented_blogs %}
+          <ul class="blog-text list-disc pl-5">
+            {% for blog in most_commented_blogs %}
+              <li>
+                <a href="{% url 'blogapp:blog_detail' blog.pk %}" class="blog-link">{{ blog.title }}</a>
+                ({{ blog.comment_count }} comentario{{ blog.comment_count|pluralize }})
+              </li>
+            {% endfor %}
+          </ul>
+        {% else %}
+          <p class="blog-text">No hay blogs con comentarios aún.</p>
+        {% endif %}
+      </div>
+
+      <!-- Tarjeta de blogs mejor puntuados -->
+      <div class="p-4 blog-card rounded-none border-2 border-light-border dark:border-dark-purple shadow-pixel">
+        <h3 class="text-lg blog-title mb-2">Blogs Mejor Puntuados</h3>
+        {% if top_rated_blogs %}
+          <ul class="blog-text list-disc pl-5">
+            {% for item in top_rated_blogs %}
+              <li>
+                <a href="{% url 'blogapp:blog_detail' item.blog.pk %}" class="blog-link">{{ item.blog.title }}</a>
+                (Puntuación: {{ item.rating }})
+              </li>
+            {% endfor %}
+          </ul>
+        {% else %}
+          <p class="blog-text">No hay blogs con reseñas aún.</p>
+        {% endif %}
       </div>
     </div>
 
     <!-- Lista de Blogs -->
-    <div class="mb-8">
+    <div class="mt-8 mb-8">
       <h2 class="text-2xl blog-title mb-4">Blogs</h2>
       <a href="{% url 'blogapp:blog_create' %}" class="inline-block bg-dark-teal text-light-text font-medium py-2 px-4 mb-4 rounded-none transition-all duration-300 hover:bg-neon-pink hover:shadow-none hover:-translate-y-1 hover:-translate-x-1">
         Crear Nuevo Blog
@@ -45,7 +82,7 @@
     </div>
 
     <!-- Lista de Etiquetas -->
-    <div>
+    <div class="mt-8">
       <h2 class="text-2xl blog-title mb-4">Etiquetas</h2>
       <a href="{% url 'blogapp:tag_create' %}" class="inline-block bg-dark-teal text-light-text font-medium py-2 px-4 mb-4 rounded-none transition-all duration-300 hover:bg-neon-pink hover:shadow-none hover:-translate-y-1 hover:-translate-x-1">
         Crear Nueva Etiqueta

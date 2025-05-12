@@ -5,6 +5,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from .forms import ReviewForm, BlogForm
 from django.http import HttpResponseRedirect
 from django.contrib.auth.forms import UserCreationForm
+from django.db.models import Count
 
 class BlogListView(ListView):
     model = Blog
@@ -89,15 +90,36 @@ class AdminDashboardView(LoginRequiredMixin, UserPassesTestMixin, TemplateView):
     template_name = 'blogapp/admin_dashboard.html'
 
     def test_func(self):
-        # Solo permite acceso a superusuarios o staff
         return self.request.user.is_superuser or self.request.user.is_staff
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['blogs'] = Blog.objects.all()  # Lista de todos los blogs
-        context['tags'] = Tag.objects.all()    # Lista de todas las etiquetas
-        context['blog_count'] = Blog.objects.count()  # Estadística: número total de blogs
-        context['tag_count'] = Tag.objects.count()    # Estadística: número total de etiquetas
+        # Datos existentes
+        context['blogs'] = Blog.objects.all()
+        context['tags'] = Tag.objects.all()
+        context['blog_count'] = Blog.objects.count()
+        context['tag_count'] = Tag.objects.count()
+
+        # Blogs más comentados
+        blogs_with_comments = Blog.objects.annotate(
+            comment_count=Count('reviews__comments')
+        ).order_by('-comment_count')[:5]  # Top 5 blogs más comentados
+        context['most_commented_blogs'] = blogs_with_comments
+
+        # Blogs mejor puntuados
+        blogs_by_rating = Blog.objects.annotate(
+            avg_rating=Count('reviews__rating')
+        ).order_by('-avg_rating')[:5]  # Top 5 blogs mejor puntuados
+        context['top_rated_blogs'] = [
+            {'blog': blog, 'rating': blog.average_rating()}
+            for blog in Blog.objects.all()
+        ]
+        context['top_rated_blogs'] = sorted(
+            context['top_rated_blogs'],
+            key=lambda x: x['rating'],
+            reverse=True
+        )[:5]
+
         return context
 
 # Vistas para Blogs (Paso 5)
