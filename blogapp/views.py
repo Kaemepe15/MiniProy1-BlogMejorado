@@ -122,7 +122,7 @@ class BlogDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     def get_success_url(self):
         return reverse_lazy('blogapp:admin_dashboard')
 
-# Vistas para Etiquetas (Paso 5)
+#Vistas para Etiquetas
 class TagCreateView(LoginRequiredMixin, UserPassesTestMixin, CreateView):
     model = Tag
     fields = ['name']
