@@ -17,8 +17,11 @@ class BlogDetailView(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['user'] = self.request.user
-        context['can_add_review'] = not Review.objects.filter(blog=self.get_object(), reviewer=self.request.user).exists()
+        if self.request.user.is_authenticated:
+         context['user'] = self.request.user
+         context['can_add_review'] = not Review.objects.filter(blog=self.get_object(), reviewer=self.request.user).exists()
+        else:
+         context['user_id'] = None  # O maneja el caso de usuario no autenticado
         return context
 
 
