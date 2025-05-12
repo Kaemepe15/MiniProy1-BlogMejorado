@@ -11,7 +11,7 @@
       <p class="text-sm blog-text mb-2">
         Tags: 
         {% for tag in object.tags.all %}
-          <a href="#" class="text-light-blue hover:text-neon-pink">{{ tag.name }}</a>{% if not forloop.last %}, {% endif %}
+          <a href="{% url 'blogapp:blog_list_by_tag' tag.name %}" class="text-light-blue hover:text-neon-pink">{{ tag.name }}</a>{% if not forloop.last %}, {% endif %}
         {% endfor %}
       </p>
     {% endif %}

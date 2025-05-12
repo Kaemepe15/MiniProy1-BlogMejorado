@@ -81,3 +81,12 @@ class RegisterView(CreateView):
     form_class = UserCreationForm
     template_name = 'registration/register.html'
     success_url = reverse_lazy('accounts:login')
+
+#Vista para filtrar por Tag
+class BlogListByTagView(ListView):
+    model = Blog
+    template_name = 'blogapp/blog_list.html'
+
+    def get_queryset(self):
+        tag_name = self.kwargs['tag_name']
+        return Blog.objects.filter(tags__name=tag_name)
