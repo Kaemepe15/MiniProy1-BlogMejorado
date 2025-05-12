@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -22,11 +23,18 @@
             'dark-teal': '#012A60',
             'neon-pink': '#E922EF',
             'light-text': '#FFFFFF',
-            'dark-text': '#270140'
+            'dark-text': '#270140',
+            'dark-purple-nav': '#151026',
+            'light-nav': '#E0E0E0',
+            'light-bg': '#F5F5F5', /* Fondo claro para tarjetas */
+            'light-text-dark': '#333333', /* Texto oscuro para modo claro */
+            'light-blue': '#1E90FF', /* Azul suave para títulos en modo claro */
+            'light-border': '#A0A0A0' /* Bordes en modo claro */
           },
           boxShadow: {
             'pixel': '4px 4px 0 0 rgba(0, 0, 0, 0.5)',
-            'pixel-dark': '4px 4px 0 0 rgba(255, 255, 255, 0.2)'
+            'pixel-dark': '4px 4px 0 0 rgba(255, 255, 255, 0.2)',
+            'pixel-light': '4px 4px 0 0 rgba(0, 0, 0, 0.3)' /* Sombra para modo claro */
           }
         }
       }
@@ -101,24 +109,68 @@
 
     /* Fondo semitransparente para el contenido */
     main {
-      background-color: rgba(5, 14, 38, 0.8);
+      background-color: rgba(255, 255, 255, 0.8); /* Modo claro */
     }
+    .dark main {
+      background-color: rgba(5, 14, 38, 0.8); /* Modo oscuro */
+    }
+
+    /* Estilos para la lista de blogs */
+    .blog-card {
+      background-color: rgba(245, 245, 245, 0.9); /* Fondo claro para tarjetas */
+      border-color: #A0A0A0; /* Borde claro */
+    }
+    .dark .blog-card {
+      background-color: rgba(5, 14, 38, 0.8); /* Fondo oscuro */
+      border-color: #270140; /* Borde oscuro */
+    }
+    .blog-title {
+      color: #1E90FF; /* Título claro */
+    }
+    .dark .blog-title {
+      color: #0060C1; /* Título oscuro */
+    }
+    .blog-text {
+      color: #333333; /* Texto claro */
+    }
+    .dark .blog-text {
+      color: #FFFFFF; /* Texto oscuro */
+    }
+    .blog-image {
+      border-color: #A0A0A0; /* Borde imagen claro */
+    }
+    .dark .blog-image {
+      border-color: #270140; /* Borde imagen oscuro */
+    }
+    .blog-button {
+      box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.3); /* Sombra clara */
+    }
+    .dark .blog-button {
+      box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.5); /* Sombra oscura */
+    }
+
+    /* Barra de navegación */
     nav {
-      background-color: rgba(0, 96, 193, 0.9);
+      background-color: rgba(224, 224, 224, 0.9);
+    }
+    .dark nav {
+      background-color: rgba(21, 16, 38, 0.9);
     }
   </style>
 </head>
 <body id="body" class="flex flex-col min-h-screen text-light-text font-pixel transition-all duration-700 ease-in-out">
-  <nav class="bg-bright-blue shadow-pixel py-4 px-6">
+  <nav class="bg-light-nav dark:bg-dark-purple-nav shadow-pixel py-2 px-4">
     <div class="max-w-6xl mx-auto flex justify-between items-center">
-      <a href="{% url 'blogapp:blog_list' %}" class="text-light-text text-2xl tracking-wider">Krash.px</a>
-      <div class="flex items-center space-x-4">
-        <button onclick="toggleDarkMode()" class="flex items-center gap-2 px-4 py-2 rounded-none bg-dark-teal text-light-text hover:bg-neon-pink transition-all duration-300 shadow-pixel">
+      <a href="{% url 'blogapp:blog_list' %}">
+        <img src="{% static 'images/Krashpx.png' %}" alt="Krash.px Logo" class="h-12 w-auto">
+      </a>
+      <div class="flex items-center space-x-2">
+        <button onclick="toggleDarkMode()" class="flex items-center gap-2 px-2 py-1 rounded-none bg-dark-teal text-light-text hover:bg-neon-pink transition-all duration-300 shadow-pixel text-sm">
           <span id="theme-icon" class="transition-transform duration-500 transform">🎮</span>
           <span id="theme-label" class="transition-opacity duration-500 ease-in-out">Modo Claro</span>
         </button>
         {% if user.is_authenticated %}
-          <a href="{% url 'blogapp:add_blog' %}" class="bg-dark-teal hover:bg-neon-pink text-light-text font-medium py-2 px-4 rounded-none transition-all duration-500 ease-in-out shadow-pixel">New Blog</a>
+          <a href="{% url 'blogapp:add_blog' %}" class="bg-dark-teal hover:bg-neon-pink text-light-text font-medium py-1 px-2 rounded-none transition-all duration-500 ease-in-out shadow-pixel text-sm">New Blog</a>
         {% endif %}
       </div>
     </div>
