@@ -1,0 +1,5 @@
+{% extends 'base.html' %}
+{% block content %}
+  <h1 class="text-2xl blog-title font-bold mb-6">Logged Out</h1>
+  <p class="blog-text">You have been logged out. <a href="{% url 'accounts:login' %}" class="blog-link hover:text-neon-pink">Log in again</a></p>
+{% endblock %}

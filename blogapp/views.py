@@ -4,6 +4,7 @@ from .models import Blog, Review, Comment
 from django.contrib.auth.mixins import LoginRequiredMixin
 from .forms import ReviewForm
 from django.http import HttpResponseRedirect
+from django.contrib.auth.forms import UserCreationForm
 
 class BlogListView(ListView):
     model = Blog
@@ -71,3 +72,9 @@ class CommentCreateView(CreateView):
 
     def get_success_url(self):
         return reverse_lazy('blogapp:blog_detail', kwargs={'pk': self.kwargs['blog_pk']})
+    
+
+class RegisterView(CreateView):
+    form_class = UserCreationForm
+    template_name = 'registration/register.html'
+    success_url = reverse_lazy('accounts:login')

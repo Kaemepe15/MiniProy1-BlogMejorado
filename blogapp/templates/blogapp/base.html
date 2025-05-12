@@ -199,7 +199,7 @@
   </style>
 </head>
 <body id="body" class="flex flex-col min-h-screen text-light-text font-pixel transition-all duration-700 ease-in-out">
-  <nav class="bg-light-nav dark:bg-dark-purple-nav shadow-pixel py-2 px-4">
+ <nav class="bg-light-nav dark:bg-dark-purple-nav shadow-pixel py-2 px-4">
     <div class="max-w-6xl mx-auto flex justify-between items-center">
       <a href="{% url 'blogapp:blog_list' %}">
         <img src="{% static 'images/Krashpx.png' %}" alt="Krash.px Logo" class="h-12 w-auto">
@@ -209,6 +209,16 @@
           <span id="theme-icon" class="transition-transform duration-500 transform">🎮</span>
           <span id="theme-label" class="transition-opacity duration-500 ease-in-out">Modo Claro</span>
         </button>
+        {% if user.is_authenticated %}
+          <form action="{% url 'accounts:logout' %}" method="post" class="inline">
+            {% csrf_token %}
+            <button type="submit" class="bg-dark-teal hover:bg-neon-pink text-light-text font-medium py-1 px-2 rounded-none transition-all duration-500 ease-in-out shadow-pixel text-sm">Logout</button>
+          </form>
+          <span class="blog-text text-sm">Welcome, {{ user.username }}!</span>
+        {% else %}
+          <a href="{% url 'accounts:login' %}" class="bg-dark-teal hover:bg-neon-pink text-light-text font-medium py-1 px-2 rounded-none transition-all duration-500 ease-in-out shadow-pixel text-sm">Login</a>
+          <a href="{% url 'blogapp:register' %}" class="bg-dark-teal hover:bg-neon-pink text-light-text font-medium py-1 px-2 rounded-none transition-all duration-500 ease-in-out shadow-pixel text-sm">Register</a>
+        {% endif %}
         {% if user.is_authenticated %}
           <a href="{% url 'blogapp:add_blog' %}" class="bg-dark-teal hover:bg-neon-pink text-light-text font-medium py-1 px-2 rounded-none transition-all duration-500 ease-in-out shadow-pixel text-sm">New Blog</a>
         {% endif %}
