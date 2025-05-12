@@ -1,8 +1,8 @@
 from django.views.generic import ListView, DetailView, CreateView
 from django.urls import reverse_lazy
-from .models import Blog, Review, Comment
+from .models import Blog, Review, Comment, Tag
 from django.contrib.auth.mixins import LoginRequiredMixin
-from .forms import ReviewForm
+from .forms import ReviewForm, BlogForm
 from django.http import HttpResponseRedirect
 from django.contrib.auth.forms import UserCreationForm
 
@@ -27,7 +27,7 @@ class BlogDetailView(DetailView):
 
 class BlogCreateView(LoginRequiredMixin, CreateView):
     model = Blog
-    fields = ['title', 'content', 'featured_image']
+    form_class = BlogForm  #  nuevo formulario para Tags
     template_name = 'blog_form.html'
 
     def form_valid(self, form):
