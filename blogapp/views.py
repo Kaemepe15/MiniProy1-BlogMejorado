@@ -122,7 +122,7 @@ class AdminDashboardView(LoginRequiredMixin, UserPassesTestMixin, TemplateView):
 
         return context
 
-# Vistas para Blogs (Paso 5)
+# Vistas para Blogs 
 class BlogUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Blog
     form_class = BlogForm

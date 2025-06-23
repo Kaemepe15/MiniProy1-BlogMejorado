@@ -23,7 +23,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'django-insecure-ukz72g)*267@$nvdk**+6#+a*nyzh_1t3o2=@wxtpga$cew)2^'
 
-# SECURITY WARNING: don't run with debug turned on in production!
+# SECURITY WARNING: poner en false cuando se temrine el proyecto
 DEBUG = True
 
 ALLOWED_HOSTS = []
@@ -149,7 +149,7 @@ CKEDITOR_CONFIGS = {
             ['Maximize'],  #Opción para entrar en pantalla completa
         ],
         'height': '300%',
-        'width': '180%',
+        'width': '100%',
         'removePlugins': ['stylesheetparser'],  #Elimina los plugins innecesarios
         'extraPlugins': ['codesnippet'],  # Opcion para añadir plugin para fragmentos de código
     },
