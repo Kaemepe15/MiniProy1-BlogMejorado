@@ -16,6 +16,9 @@
       {% endfor %}
     </div>
     <button type="submit" class="px-6 py-2 bg-dark-teal hover:bg-neon-pink text-light-text font-medium rounded-none transition-all duration-300 blog-button hover:shadow-none hover:-translate-y-1 hover:-translate-x-1">Register</button>
+    <div class="mt-4 text-center">
+      <a href="{% url 'social:begin' 'google-oauth2' %}" class="px-6 py-2 bg-dark-teal hover:bg-neon-pink text-light-text font-medium rounded-none transition-all duration-300 blog-button hover:shadow-none hover:-translate-y-1 hover:-translate-x-1">Registrarse con Google</a>
+    </div>
     <p class="mt-4 blog-text">Already have an account? <a href="{% url 'accounts:login' %}" class="blog-link hover:text-neon-pink">Log in here</a></p>
   </form>
 {% endblock %}

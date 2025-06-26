@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'ckeditor',
     'ckeditor_uploader',
     'social_django',  #Se añade para la autenticación con Google
+    'django_extensions',
 ]
 
 MIDDLEWARE = [

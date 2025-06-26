@@ -14,8 +14,7 @@ urlpatterns = [
     path('blog/<int:pk>/review/', ReviewCreateView.as_view(), name='add_review'),
     path('blog/<int:blog_pk>/review/<int:review_pk>/comment/', CommentCreateView.as_view(), name='add_comment'),
     path('register/', RegisterView.as_view(), name='register'),
-    path('tag/<str:tag_name>/', BlogListByTagView.as_view(), name='blog_list_by_tag'),
-    
+    path('tag/<str:tag_name>/', BlogListByTagView.as_view(), name='blog_list_by_tag'), 
     #Nuevas URLs para el panel de administración corregidas
     path('admin-dashboard/', AdminDashboardView.as_view(), name='admin_dashboard'),
     path('blog/create/', BlogCreateView.as_view(), name='blog_create'),
@@ -24,7 +23,6 @@ urlpatterns = [
     path('tag/create/', TagCreateView.as_view(), name='tag_create'),
     path('tag/<int:pk>/edit/', TagUpdateView.as_view(), name='tag_edit'),
     path('tag/<int:pk>/delete/', TagDeleteView.as_view(), name='tag_delete'),
-
     #Urls para la autenticación con google
     path('accounts/', include('django.contrib.auth.urls')),
     path('oauth/', include('social_django.urls', namespace='social')),  #Rutas para Google

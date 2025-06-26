@@ -26,6 +26,7 @@ urlpatterns = [
     path('', include('blogapp.urls')),  # Conecta las URLs de blogapp
     path('ckeditor/', include('ckeditor_uploader.urls')),  # URL para subir imágenes con CKEditor
     path('accounts/', include(('django.contrib.auth.urls', 'accounts'), namespace='accounts')), # Añadimos namespace='accounts'
+    path('oauth/', include('social_django.urls', namespace='social')),
 ]
 
 # Sirve archivos multimedia y estáticos durante el desarrollo
