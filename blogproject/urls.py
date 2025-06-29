@@ -27,6 +27,7 @@ urlpatterns = [
     path('ckeditor/', include('ckeditor_uploader.urls')),  # URL para subir imágenes con CKEditor
     path('accounts/', include(('django.contrib.auth.urls', 'accounts'), namespace='accounts')), # Añadimos namespace='accounts'
     path('oauth/', include('social_django.urls', namespace='social')),
+    path('accounts/locked/', auth_views.TemplateView.as_view(template_name='axes/lockout.html'), name='locked'),  # Ruta de bloqueo
 ]
 
 # Sirve archivos multimedia y estáticos durante el desarrollo

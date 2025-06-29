@@ -3,6 +3,8 @@ from .views import BlogListView, BlogDetailView, ReviewCreateView, CommentCreate
 from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib.auth.views import LogoutView
+from django.contrib.auth import views as auth_views
+
 
 app_name = 'blogapp'
 
@@ -23,6 +25,7 @@ urlpatterns = [
     path('tag/<int:pk>/edit/', TagUpdateView.as_view(), name='tag_edit'),
     path('tag/<int:pk>/delete/', TagDeleteView.as_view(), name='tag_delete'),
     #Urls para la autenticación con google
+    path('accounts/login/', auth_views.LoginView.as_view(), name='login'),  # Forzar la vista de login
     path('accounts/', include('django.contrib.auth.urls')),
     path('oauth/', include('social_django.urls', namespace='social')),  #Rutas para Google
     path('logout/', LogoutView.as_view(), name='logout'),

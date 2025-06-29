@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 from pathlib import Path
 from decouple import config
 import os
+import logging
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -45,6 +46,7 @@ INSTALLED_APPS = [
     'ckeditor_uploader',
     'social_django',  #Se añade para la autenticación con Google
     'django_extensions',
+    'axes', #Se añade django axes
 ]
 
 MIDDLEWARE = [
@@ -53,8 +55,10 @@ MIDDLEWARE = [
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'axes.middleware.AxesMiddleware', # Middleware creado para que el login no me ignore el Axes
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    
 ]
 
 ROOT_URLCONF = 'blogproject.urls'
@@ -173,19 +177,35 @@ LOGIN_URL = '/accounts/login/'
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
 
+# Configuración de Django Axes
+AXES_LOGIN_FAILURE_LIMIT = 3  # Máximo de 3 intentos fallidos antes de bloquear
+AXES_COOLOFF_TIME = 1  # Bloqueo por 1 hora
+AXES_LOCKOUT_TEMPLATE = 'axes/lockout.html'  # Plantilla para el mensaje de bloqueo
+AXES_LOCKOUT_URL = '/accounts/locked/'  # URL a la que redirigir tras bloquear
+
 
 #Authenticacion del Backend
 AUTHENTICATION_BACKENDS = [
+    'axes.backends.AxesBackend',  # Añadido para Axes
     'social_core.backends.google.GoogleOAuth2',  # Solo Google
     'django.contrib.auth.backends.ModelBackend',  # Backend por defecto de Django
 ]
 
-#Claves de Google
 
+# Configuración para manejar IPs en proxies
+AXES_USE_USER_AGENT = True
+AXES_META_PRECEDENCE_ORDER = [
+      'HTTP_X_FORWARDED_FOR',
+      'REMOTE_ADDR',
+  ]
+
+
+#Claves de Google
 print("GOOGLE_OAUTH2_KEY:", config('GOOGLE_OAUTH2_KEY'))
 print("GOOGLE_OAUTH2_SECRET:", config('GOOGLE_OAUTH2_SECRET'))
 SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = config('GOOGLE_OAUTH2_KEY')
 SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = config('GOOGLE_OAUTH2_SECRET')
+
 
 #SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = os.environ.get('GOOGLE_OAUTH2_KEY', '')
 #SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = os.environ.get('GOOGLE_OAUTH2_SECRET', '')
@@ -203,3 +223,4 @@ SOCIAL_AUTH_PIPELINE = (
     'social_core.pipeline.user.user_details',
 )
 
+logging.basicConfig(level=logging.DEBUG)
