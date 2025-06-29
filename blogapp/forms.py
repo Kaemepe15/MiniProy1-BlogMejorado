@@ -25,6 +25,12 @@ class BlogForm(forms.ModelForm):
             'content': forms.Textarea(attrs={'rows': 6}),
         }
 
+    def clean_featured_image(self):
+        featured_image = self.cleaned_data.get('featured_image')
+        if featured_image and hasattr(featured_image, 'url') and 'http' in str(featured_image):
+            raise forms.ValidationError("Solo se permiten archivos subidos localmente, no URLs.")
+        return featured_image
+
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields['tags'].label = "Tags (select or add new ones)"
