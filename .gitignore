@@ -19,3 +19,6 @@ media/
 *.pyo
 *.pyd
 .Python
+
+# Ignora las credenciales de autenticación y no las sube al repositorio 
+.env
