@@ -18,7 +18,7 @@
     {% if object.featured_image %}
       <img src="{{ object.featured_image.url }}" alt="{{ object.title }}" class="w-full h-64 object-cover rounded-none border-2 blog-image mb-4 shadow-pixel">
     {% endif %}
-    <p class="blog-text mb-4">{{ object.content|safe }}</p>
+    <p class="blog-text mb-4">{{ object.content }}</p>
     <p class="text-sm blog-text">By {{ object.author.username }} - {{ object.created_at }}</p>
   </article>
 
