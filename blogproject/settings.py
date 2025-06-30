@@ -201,8 +201,8 @@ AXES_META_PRECEDENCE_ORDER = [
 
 
 #Claves de Google
-print("GOOGLE_OAUTH2_KEY:", config('GOOGLE_OAUTH2_KEY'))
-print("GOOGLE_OAUTH2_SECRET:", config('GOOGLE_OAUTH2_SECRET'))
+#print("GOOGLE_OAUTH2_KEY:", config('GOOGLE_OAUTH2_KEY'))
+#print("GOOGLE_OAUTH2_SECRET:", config('GOOGLE_OAUTH2_SECRET'))
 SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = config('GOOGLE_OAUTH2_KEY')
 SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = config('GOOGLE_OAUTH2_SECRET')
 
@@ -224,3 +224,11 @@ SOCIAL_AUTH_PIPELINE = (
 )
 
 logging.basicConfig(level=logging.DEBUG)
+
+# Configuración de seguridad para sesiones
+SESSION_COOKIE_SECURE = False  # Cambiarlo a True en producción con HTTPS
+SESSION_COOKIE_HTTPONLY = True  # Previene acceso al cookie desde JavaScript
+SESSION_COOKIE_SAMESITE = 'Lax'  # Protege contra CSRF en enlaces externos
+SESSION_EXPIRE_AT_BROWSER_CLOSE = True  # Cierra la sesión al cerrar el navegador
+CSRF_COOKIE_SECURE = False  # Cambiar a True en producción con HTTPS
+CSRF_COOKIE_HTTPONLY = True  # Protege el token CSRF de acceso JavaScript
