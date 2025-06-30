@@ -2,12 +2,15 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.core.validators import MinValueValidator, MaxValueValidator
 from ckeditor.fields import RichTextField
+from auditlog.registry import auditlog  # Añadido
+from auditlog.models import AuditlogHistoryField  # Añadido
 
 
 
 #MODELOS
 class Tag(models.Model):
     name = models.CharField(max_length=50, unique=True)
+    history = AuditlogHistoryField()  # Añadido para auditoría
 
     def __str__(self):
         return self.name
@@ -19,6 +22,7 @@ class Blog(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     featured_image = models.ImageField(upload_to='blog_images/', blank=True, null=True) #Se añade para poder agregar imagenes
     tags = models.ManyToManyField(Tag, blank=True, related_name='blogs')  # Relación con etiquetas
+    history = AuditlogHistoryField()  # Añadido para auditoría
 
     def __str__(self):
         return self.title
@@ -36,6 +40,7 @@ class Review(models.Model):
     rating = models.IntegerField(validators=[MinValueValidator(1), MaxValueValidator(5)])
     comment = RichTextField()
     created_at = models.DateTimeField(auto_now_add=True)
+    history = AuditlogHistoryField()  # Añadido para auditoría
 
     def __str__(self):
         return f"{self.reviewer.username} - {self.blog.title}"
@@ -50,6 +55,13 @@ class Comment(models.Model):
     commenter = models.ForeignKey(User, on_delete=models.CASCADE)
     content = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
+    history = AuditlogHistoryField()  # Añadido para auditoría
 
     def __str__(self):
         return f"Comment by {self.commenter.username}"
+    
+# Registra los modelos en auditlog
+auditlog.register(Tag)
+auditlog.register(Blog)
+auditlog.register(Review)
+auditlog.register(Comment)

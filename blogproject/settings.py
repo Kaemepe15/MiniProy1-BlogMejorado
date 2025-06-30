@@ -44,9 +44,10 @@ INSTALLED_APPS = [
     'widget_tweaks',
     'ckeditor',
     'ckeditor_uploader',
-    'social_django',  #Se añade para la autenticación con Google
+    'social_django',  # Se añade para la autenticación con Google
     'django_extensions',
-    'axes', #Se añade django axes
+    'axes', # Se añade django axes
+    'auditlog', #Se añade para la auditoria con auditlog
 ]
 
 MIDDLEWARE = [
@@ -232,3 +233,6 @@ SESSION_COOKIE_SAMESITE = 'Lax'  # Protege contra CSRF en enlaces externos
 SESSION_EXPIRE_AT_BROWSER_CLOSE = True  # Cierra la sesión al cerrar el navegador
 CSRF_COOKIE_SECURE = False  # Cambiar a True en producción con HTTPS
 CSRF_COOKIE_HTTPONLY = True  # Protege el token CSRF de acceso JavaScript
+
+# Limita el tiempo de sesión de una cuenta
+SESSION_COOKIE_AGE = 86400  # 24 horas en segundos
