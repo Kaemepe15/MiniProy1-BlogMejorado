@@ -1,4 +1,4 @@
-from django import forms
+from django import forms, os 
 from .models import Blog, Review, Tag
 
 class ReviewForm(forms.ModelForm):
@@ -27,8 +27,15 @@ class BlogForm(forms.ModelForm):
 
     def clean_featured_image(self):
         featured_image = self.cleaned_data.get('featured_image')
-        if featured_image and hasattr(featured_image, 'url') and 'http' in str(featured_image):
-            raise forms.ValidationError("Solo se permiten archivos subidos localmente, no URLs.")
+        if featured_image:
+            # Lista de extensiones permitidas
+            allowed_extensions = ['.jpg', '.jpeg', '.png', '.gif']
+            ext = os.path.splitext(featured_image.name)[1].lower()
+            if ext not in allowed_extensions:
+                raise forms.ValidationError("Solo se permiten archivos de imagen (.jpg, .jpeg, .png, .gif).")
+            # Verifica que sea una imagen válida
+            if not featured_image.content_type.startswith('image/'):
+                raise forms.ValidationError("El archivo debe ser una imagen válida.")
         return featured_image
 
     def __init__(self, *args, **kwargs):
