@@ -167,7 +167,7 @@ CKEDITOR_UPLOAD_PATH = 'uploads/'  #Carpeta donde se guardarán las imágenes
 
 #Configuración de archivos multimedia
 MEDIA_URL = '/media/'
-MEDIA_ROOT = BASE_DIR / 'media' 
+MEDIA_ROOT = BASE_DIR / 'media' / 'uploads'  # Subcarpeta 'uploads' dentro de media
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [BASE_DIR / "static"]
 

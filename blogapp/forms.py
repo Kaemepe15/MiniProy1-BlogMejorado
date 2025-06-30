@@ -1,5 +1,6 @@
-from django import forms, os 
+from django import forms
 from .models import Blog, Review, Tag
+import os
 
 class ReviewForm(forms.ModelForm):
     class Meta:
